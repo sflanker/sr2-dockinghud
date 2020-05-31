@@ -1,0 +1,252 @@
+<XmlLayout xmlns="XmlLayout" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="XmlLayout ../../ModTools/UI/XmlLayout.xsd">
+    <Defaults>
+        <!-- Class Defaults -->
+        <Text
+            class="primaryInstrument"
+            color="rgb(0,1,0)"
+            font="CrewDragonHUD/Fonts/Anita semi square"
+            fontSize="24" />
+        <Text
+            class="secondaryInstrument"
+            color="#24d2fd"
+            font="CrewDragonHUD/Fonts/Anita semi square"
+            fontSize="18" />
+        <Text verticalOverflow="Overflow" shadow="rgba(0, 0, 0, 0.8)" shadowDistance="2 -2" />
+        <Image shadow="rgba(0, 0, 0, 0.8)" shadowDistance="2 -2" />
+        <Panel
+            class="layoutRoot"
+            opacity="0.4"
+            padding="100"
+            aspectRatio="1"
+            aspectMode="FitInParent" />
+        <TableLayout
+            class="layoutRoot"
+            opacity="0.4"
+            padding="100"
+            aspectRatio="1"
+            aspectMode="FitInParent" />
+
+        <!-- Global Defaults -->
+        <!-- This UI should not capture any mouse input -->
+        <Panel raycastTarget="false" />
+        <VerticalLayout raycastTarget="false" />
+        <HorizontalLayout raycastTarget="false" />
+        <Text raycastTarget="false" />
+        <Mask raycastTarget="false" />
+        <Image raycastTarget="false" />
+        <TableLayout raycastTarget="false" />
+        <Row raycastTarget="false" />
+        <Cell dontUseTableCellBackground="true" raycastTarget="false" />
+    </Defaults>
+    <Panel class="layoutRoot">
+        <Panel>
+            <Mask image="CrewDragonHUD/Sprites/CrewDragonHUD_RateMask1">
+                <Image id="negativeRollRateBar" image="CrewDragonHUD/Sprites/CrewDragonHUD_RateCCW" preserveAspect="true">
+                </Image>
+            </Mask>
+        </Panel>
+    </Panel>
+    <Panel class="layoutRoot">
+        <Panel>
+            <Mask image="CrewDragonHUD/Sprites/CrewDragonHUD_RateMask2">
+                <Image id="positiveRollRateBar" image="CrewDragonHUD/Sprites/CrewDragonHUD_RateCW" preserveAspect="true">
+                </Image>
+            </Mask>
+        </Panel>
+    </Panel>
+    <Panel class="layoutRoot">
+        <Panel>
+            <Mask image="CrewDragonHUD/Sprites/CrewDragonHUD_RateMask2">
+                <Image id="positivePitchRateBar" image="CrewDragonHUD/Sprites/CrewDragonHUD_RateCCW" preserveAspect="true">
+                </Image>
+            </Mask>
+        </Panel>
+    </Panel>
+    <Panel class="layoutRoot">
+        <Panel>
+            <Mask image="CrewDragonHUD/Sprites/CrewDragonHUD_RateMask3">
+                <Image id="negativePitchRateBar" image="CrewDragonHUD/Sprites/CrewDragonHUD_RateCW" preserveAspect="true">
+                </Image>
+            </Mask>
+        </Panel>
+    </Panel>
+    <Panel class="layoutRoot">
+        <Panel>
+            <Mask image="CrewDragonHUD/Sprites/CrewDragonHUD_RateMask3">
+                <Image id="positiveYawRateBar" image="CrewDragonHUD/Sprites/CrewDragonHUD_RateCCW" preserveAspect="true">
+                </Image>
+            </Mask>
+        </Panel>
+    </Panel>
+    <Panel class="layoutRoot">
+        <Panel>
+            <Mask image="CrewDragonHUD/Sprites/CrewDragonHUD_RateMask4">
+                <Image id="negativeYawRateBar" image="CrewDragonHUD/Sprites/CrewDragonHUD_RateCW" preserveAspect="true">
+                </Image>
+            </Mask>
+        </Panel>
+    </Panel>
+    <Panel class="layoutRoot">
+        <Image image="CrewDragonHUD/Sprites/CrewDragonHUD" preserveAspect="true" />
+    </Panel>
+    <TableLayout class="layoutRoot">
+        <Row>
+            <Cell />
+            <Cell>
+                <TableLayout>
+                    <Row />
+                    <Row>
+                        <Cell>
+                            <VerticalLayout minHeight="80" childAlignment="UpperCenter">
+                                <Text id="rollAngle" class="primaryInstrument">00.0°</Text>
+                                <Text id="rollRate" verticalOverflow="Overflow" class="secondaryInstrument">0.0 °/s</Text>
+                            </VerticalLayout>
+                        </Cell>
+                    </Row>
+                    <Row />
+                    <Row />
+                    <Row />
+                    <Row />
+                </TableLayout>
+            </Cell>
+            <Cell />
+        </Row>
+        <Row>
+            <Cell>
+                <TableLayout>
+                    <Row>
+                        <Cell />
+                        <Cell>
+                            <TableLayout>
+                                <Row />
+                                <Row />
+                                <Row />
+                                <Row>
+                                    <Cell contentSizeFitter="horizontal">
+                                        <Text id="offsetX" class="primaryInstrument">00.0 m</Text>
+                                        <HorizontalLayout minWidth="10">
+                                            <Text />
+                                        </HorizontalLayout>
+                                        <Text id="translationRateX" class="secondaryInstrument">(0.0 m/s)</Text>
+                                    </Cell>
+                                </Row>
+                                <Row>
+                                    <Cell contentSizeFitter="horizontal">
+                                        <Text id="offsetY" class="primaryInstrument">00.0 m</Text>
+                                        <HorizontalLayout minWidth="10">
+                                            <Text />
+                                        </HorizontalLayout>
+                                        <Text id="translationRateY" class="secondaryInstrument">(0.0 m/s)</Text>
+                                    </Cell>
+                                </Row>
+                                <Row>
+                                    <Cell contentSizeFitter="horizontal">
+                                        <Text id="offsetZ" class="primaryInstrument">00.0 m</Text>
+                                        <HorizontalLayout minWidth="10">
+                                            <Text />
+                                        </HorizontalLayout>
+                                        <Text id="translationRateZ" class="secondaryInstrument">(0.0 m/s)</Text>
+                                    </Cell>
+                                </Row>
+                                <Row />
+                                <Row />
+                                <Row />
+                            </TableLayout>
+                            <!--                            <VerticalLayout minWidth="200" childAlignment="MiddleLeft" childForceExpandHeight="false" childForceExpandWidth="false">-->
+                            <!--                                <Text id="debug1" class="primaryInstrument" horizontalOverflow="Overflow"> </Text>-->
+                            <!--                                <Text id="debug2" class="primaryInstrument" horizontalOverflow="Overflow"> </Text>-->
+                            <!--                                <Text id="debug3" class="primaryInstrument" horizontalOverflow="Overflow"> </Text>-->
+                            <!--                            </VerticalLayout>-->
+                        </Cell>
+                        <Cell />
+                        <Cell />
+                        <Cell />
+                        <Cell />
+                    </Row>
+                </TableLayout>
+            </Cell>
+            <Cell />
+            <Cell>
+                <TableLayout>
+                    <Row>
+                        <Cell />
+                        <Cell />
+                        <Cell />
+                        <Cell />
+                        <Cell>
+                            <VerticalLayout childAlignment="MiddleRight" childForceExpandHeight="false" childForceExpandWidth="false" ignoreLayout="true"
+                                            rectAlignment="MiddleRight" width="200">
+                                <Text id="pitchAngle" class="primaryInstrument">00.0°</Text>
+                                <Text id="pitchRate" class="secondaryInstrument">0.0 °/s</Text>
+                            </VerticalLayout>
+                        </Cell>
+                        <Cell />
+                    </Row>
+                </TableLayout>
+            </Cell>
+        </Row>
+        <Row>
+            <Cell>
+                <TableLayout>
+                    <Row />
+                    <Row />
+                    <Row>
+                        <Cell />
+                        <Cell />
+                        <Cell />
+                        <Cell>
+                            <Text id="range" horizontalOverflow="Overflow" class="primaryInstrument">100.0 m</Text>
+                        </Cell>
+                        <Cell />
+                        <Cell />
+                    </Row>
+                    <Row />
+                    <Row />
+                    <Row />
+                    <Row />
+                    <Row />
+                    <Row />
+                </TableLayout>
+            </Cell>
+            <Cell>
+                <TableLayout>
+                    <Row />
+                    <Row />
+                    <Row />
+                    <Row />
+                    <Row>
+                        <Cell childAlignment="LowerCenter">
+                            <VerticalLayout minHeight="80" childAlignment="LowerCenter">
+                                <Text id="yawAngle" verticalOverflow="Overflow" class="primaryInstrument">00.0°</Text>
+                                <Text id="yawRate" verticalOverflow="Overflow" class="secondaryInstrument">0.0 °/s</Text>
+                            </VerticalLayout>
+                        </Cell>
+                    </Row>
+                    <Row />
+                </TableLayout>
+            </Cell>
+            <Cell>
+                <TableLayout>
+                    <Row />
+                    <Row />
+                    <Row>
+                        <Cell />
+                        <Cell />
+                        <Cell>
+                            <Text id="rateOfApproach" horizontalOverflow="Overflow" class="secondaryInstrument">0.0 m/s</Text>
+                        </Cell>
+                        <Cell />
+                        <Cell />
+                        <Cell />
+                    </Row>
+                    <Row />
+                    <Row />
+                    <Row />
+                    <Row />
+                    <Row />
+                    <Row />
+                </TableLayout>
+            </Cell>
+        </Row>
+    </TableLayout>
+</XmlLayout>

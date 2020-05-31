@@ -7,6 +7,7 @@ using Assets.Scripts.Helpers;
 using ModApi.Craft;
 using ModApi.Craft.Parts;
 using ModApi.Ui;
+using UI.Xml;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -98,6 +99,13 @@ namespace Assets.Scripts.UI {
             // this._debug2 = this.GetTextElementById("debug2");
             // this._debug3 = this.GetTextElementById("debug3");
 
+            this.ClearText();
+            this.SetRotationRateBars(new Vector3(0, 0, 0));
+
+            foreach (var layoutRoot in ((XmlLayout)this._controller.XmlLayout).GetElementsByClass("layoutRoot")) {
+                layoutRoot.SetActive(true);
+            }
+
             this._isInitialized = true;
         }
 
@@ -111,75 +119,7 @@ namespace Assets.Scripts.UI {
                 this._yawRateText.text = $"{RadiansToDegrees(angularVelocity.y):F2} °/s";
                 this._rollRateText.text = $"{RadiansToDegrees(angularVelocity.z):F2} °/s";
 
-                // Positive roll rate bar: 0 = 38, >45 = 0
-                this._rollRateBarPositive.RectTransform.rotation =
-                    Quaternion.Euler(
-                        0,
-                        0,
-                        (Single)Math.Max(
-                            0,
-                            RollRateBarPositiveZeroAngle - (RadiansToDegrees(angularVelocity.z) / 45) * RateBarMaxAngle
-                        )
-                    );
-
-                // Negative roll rate: 0 = -38, <-45 = 0
-                this._rollRateBarNegative.RectTransform.rotation =
-                    Quaternion.Euler(
-                        0,
-                        0,
-                        (Single)Math.Min(
-                            0,
-                            RollRateBarNegativeZeroAngle - (RadiansToDegrees(angularVelocity.z) / 45) * RateBarMaxAngle
-                        )
-                    );
-
-                // Positive pitch rate bar: 0 = -128, >45 = -90
-                this._pitchRateBarPositive.RectTransform.rotation =
-                    Quaternion.Euler(
-                        0,
-                        0,
-                        (Single)Math.Min(
-                            -90,
-                            PitchRateBarPositiveZeroAngle +
-                            (RadiansToDegrees(angularVelocity.x) / 15) * RateBarMaxAngle
-                        )
-                    );
-
-                // Negative pitch rate: 0 = -42, <-45 = -90
-                this._pitchRateBarNegative.RectTransform.rotation =
-                    Quaternion.Euler(
-                        0,
-                        0,
-                        (Single)Math.Max(
-                            -90,
-                            PitchRateBarNegativeZeroAngle +
-                            (RadiansToDegrees(angularVelocity.x) / 15) * RateBarMaxAngle
-                        )
-                    );
-
-                // Positive yaw rate bar: 0 = -218, >45 = -180
-                this._yawRateBarPositive.RectTransform.rotation =
-                    Quaternion.Euler(
-                        0,
-                        0,
-                        (Single)Math.Min(
-                            -180,
-                            YawRateBarPositiveZeroAngle +
-                            (RadiansToDegrees(angularVelocity.y) / 45) * RateBarMaxAngle
-                        )
-                    );
-
-                // Negative roll rate: 0 = -166, <-45 = -180
-                this._yawRateBarNegative.RectTransform.rotation =
-                    Quaternion.Euler(
-                        0,
-                        0,
-                        (Single)Math.Max(
-                            -180,
-                            YawRateBarNegativeZeroAngle +
-                            (RadiansToDegrees(angularVelocity.y) / 45) * RateBarMaxAngle
-                        )
-                    );
+                this.SetRotationRateBars(angularVelocity);
 
                 var target = craft.FlightData.NavSphereTarget;
                 if (target != null && target.Parent == craft.CraftNode.Parent) {
@@ -323,38 +263,118 @@ namespace Assets.Scripts.UI {
                         this._yawAngleText.text = "";
                     }
                 } else {
-                    if (this.targetPositionMarker != null) {
-                        foreach (var child in this.targetPositionMarkerChildren) {
-                            Destroy(child);
-                        }
+                    this.DestroyGuides();
 
-                        this.targetPositionMarkerChildren = null;
-
-                        Destroy(this.targetPositionMarker);
-                        this.targetPositionMarker = null;
-                    }
-
-                    if (this.dockingPortMarker != null) {
-                        Destroy(this.dockingPortMarker);
-                        this.dockingPortMarker = null;
-                    }
-
-                    this._targetOffsetX.text = "";
-                    this._targetOffsetY.text = "";
-                    this._targetOffsetZ.text = "";
-
-                    this._translationRateX.text = "";
-                    this._translationRateY.text = "";
-                    this._translationRateZ.text = "";
-
-                    this._rateOfApproachText.text = "";
-                    this._rangeText.text = "";
-
-                    this._rollAngleText.text = "";
-                    this._pitchAngleText.text = "";
-                    this._yawAngleText.text = "";
+                    this.ClearText();
                 }
             }
+        }
+
+        private void DestroyGuides() {
+            if (this.targetPositionMarker != null) {
+                foreach (var child in this.targetPositionMarkerChildren) {
+                    Destroy(child);
+                }
+
+                this.targetPositionMarkerChildren = null;
+
+                Destroy(this.targetPositionMarker);
+                this.targetPositionMarker = null;
+            }
+
+            if (this.dockingPortMarker != null) {
+                Destroy(this.dockingPortMarker);
+                this.dockingPortMarker = null;
+            }
+        }
+
+        private void SetRotationRateBars(Vector3 angularVelocity) {
+            // Positive roll rate bar: 0 = 38, >45 = 0
+            this._rollRateBarPositive.RectTransform.rotation =
+                Quaternion.Euler(
+                    0,
+                    0,
+                    (Single)Math.Max(
+                        0,
+                        RollRateBarPositiveZeroAngle - (RadiansToDegrees(angularVelocity.z) / 45) * RateBarMaxAngle
+                    )
+                );
+
+            // Negative roll rate: 0 = -38, <-45 = 0
+            this._rollRateBarNegative.RectTransform.rotation =
+                Quaternion.Euler(
+                    0,
+                    0,
+                    (Single)Math.Min(
+                        0,
+                        RollRateBarNegativeZeroAngle - (RadiansToDegrees(angularVelocity.z) / 45) * RateBarMaxAngle
+                    )
+                );
+
+            // Positive pitch rate bar: 0 = -128, >45 = -90
+            this._pitchRateBarPositive.RectTransform.rotation =
+                Quaternion.Euler(
+                    0,
+                    0,
+                    (Single)Math.Min(
+                        -90,
+                        PitchRateBarPositiveZeroAngle +
+                        (RadiansToDegrees(angularVelocity.x) / 15) * RateBarMaxAngle
+                    )
+                );
+
+            // Negative pitch rate: 0 = -42, <-45 = -90
+            this._pitchRateBarNegative.RectTransform.rotation =
+                Quaternion.Euler(
+                    0,
+                    0,
+                    (Single)Math.Max(
+                        -90,
+                        PitchRateBarNegativeZeroAngle +
+                        (RadiansToDegrees(angularVelocity.x) / 15) * RateBarMaxAngle
+                    )
+                );
+
+            // Positive yaw rate bar: 0 = -218, >45 = -180
+            this._yawRateBarPositive.RectTransform.rotation =
+                Quaternion.Euler(
+                    0,
+                    0,
+                    (Single)Math.Min(
+                        -180,
+                        YawRateBarPositiveZeroAngle +
+                        (RadiansToDegrees(angularVelocity.y) / 45) * RateBarMaxAngle
+                    )
+                );
+
+            // Negative roll rate: 0 = -166, <-45 = -180
+            this._yawRateBarNegative.RectTransform.rotation =
+                Quaternion.Euler(
+                    0,
+                    0,
+                    (Single)Math.Max(
+                        -180,
+                        YawRateBarNegativeZeroAngle +
+                        (RadiansToDegrees(angularVelocity.y) / 45) * RateBarMaxAngle
+                    )
+                );
+        }
+
+        private void ClearText() {
+            this._targetOffsetX.text = "";
+            this._targetOffsetY.text = "";
+            this._targetOffsetZ.text = "";
+
+            this._translationRateX.text = "";
+            this._translationRateY.text = "";
+            this._translationRateZ.text = "";
+
+            this._rateOfApproachText.text = "";
+            this._rangeText.text = "";
+
+            this._rollAngleText.text = "";
+            this._pitchAngleText.text = "";
+            this._yawAngleText.text = "";
         }
 
         private static GameObject CreateTargetPortGuide(Mesh mesh, Material material) {
@@ -395,6 +415,7 @@ namespace Assets.Scripts.UI {
         }
 
         public void Close() {
+            this.DestroyGuides();
             this._controller.XmlLayout.Hide(() => Destroy(this.gameObject), true);
         }
 

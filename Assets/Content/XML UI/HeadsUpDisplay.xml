@@ -38,7 +38,7 @@
         <Row raycastTarget="false" />
         <Cell dontUseTableCellBackground="true" raycastTarget="false" />
     </Defaults>
-    <Panel class="layoutRoot">
+    <Panel active="false" class="layoutRoot">
         <Panel>
             <Mask image="CrewDragonHUD/Sprites/CrewDragonHUD_RateMask1">
                 <Image id="negativeRollRateBar" image="CrewDragonHUD/Sprites/CrewDragonHUD_RateCCW" preserveAspect="true">
@@ -46,7 +46,7 @@
             </Mask>
         </Panel>
     </Panel>
-    <Panel class="layoutRoot">
+    <Panel active="false" class="layoutRoot">
         <Panel>
             <Mask image="CrewDragonHUD/Sprites/CrewDragonHUD_RateMask2">
                 <Image id="positiveRollRateBar" image="CrewDragonHUD/Sprites/CrewDragonHUD_RateCW" preserveAspect="true">
@@ -54,7 +54,7 @@
             </Mask>
         </Panel>
     </Panel>
-    <Panel class="layoutRoot">
+    <Panel active="false" class="layoutRoot">
         <Panel>
             <Mask image="CrewDragonHUD/Sprites/CrewDragonHUD_RateMask2">
                 <Image id="positivePitchRateBar" image="CrewDragonHUD/Sprites/CrewDragonHUD_RateCCW" preserveAspect="true">
@@ -62,7 +62,7 @@
             </Mask>
         </Panel>
     </Panel>
-    <Panel class="layoutRoot">
+    <Panel active="false" class="layoutRoot">
         <Panel>
             <Mask image="CrewDragonHUD/Sprites/CrewDragonHUD_RateMask3">
                 <Image id="negativePitchRateBar" image="CrewDragonHUD/Sprites/CrewDragonHUD_RateCW" preserveAspect="true">
@@ -70,7 +70,7 @@
             </Mask>
         </Panel>
     </Panel>
-    <Panel class="layoutRoot">
+    <Panel active="false" class="layoutRoot">
         <Panel>
             <Mask image="CrewDragonHUD/Sprites/CrewDragonHUD_RateMask3">
                 <Image id="positiveYawRateBar" image="CrewDragonHUD/Sprites/CrewDragonHUD_RateCCW" preserveAspect="true">
@@ -78,7 +78,7 @@
             </Mask>
         </Panel>
     </Panel>
-    <Panel class="layoutRoot">
+    <Panel active="false" class="layoutRoot">
         <Panel>
             <Mask image="CrewDragonHUD/Sprites/CrewDragonHUD_RateMask4">
                 <Image id="negativeYawRateBar" image="CrewDragonHUD/Sprites/CrewDragonHUD_RateCW" preserveAspect="true">
@@ -86,10 +86,10 @@
             </Mask>
         </Panel>
     </Panel>
-    <Panel class="layoutRoot">
+    <Panel active="false" class="layoutRoot">
         <Image image="CrewDragonHUD/Sprites/CrewDragonHUD" preserveAspect="true" />
     </Panel>
-    <TableLayout class="layoutRoot">
+    <TableLayout active="false" class="layoutRoot">
         <Row>
             <Cell />
             <Cell>

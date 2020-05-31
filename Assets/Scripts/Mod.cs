@@ -1,12 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Assets.Scripts.Flight.UI;
 using Assets.Scripts.UI;
 using ModApi;
 using ModApi.Common;
 using ModApi.Mods;
 using ModApi.Scenes.Events;
 using ModApi.Ui;
+using UI.Xml;
 using UnityEngine;
 using Object = System.Object;
 
@@ -70,16 +73,6 @@ namespace Assets.Scripts {
                         $"</ContentButton>"
                     )
                 );
-
-                request.AddOnLayoutRebuiltAction(
-                    xmlLayoutController => {
-                        Debug.Log("Ui/Xml/Flight/ViewPanel Layout Rebuilt");
-                        var button = xmlLayoutController.XmlLayout.GetElementById(ToggleDockingHudButtonId);
-                        if (button != null) {
-                            Debug.Log("Registering Button Click");
-                            button.AddOnClickEvent(OnToggleHudButtonClicked);
-                        }
-                    });
             } else {
                 Debug.LogWarning(
                     $"CrewDragonHUD unable to load UI because the '{CameraPanelButtonId}' button was not found."
@@ -90,10 +83,32 @@ namespace Assets.Scripts {
         private void OnBuildFlightSceneUI(BuildUserInterfaceXmlRequest request) {
             request.AddOnLayoutRebuiltAction(
                 xmlLayoutController => {
-                    Debug.Log("FlightSceneUI Layout Rebuilt");
-                    var viewPanel = xmlLayoutController.XmlLayout.GetElementById("view-panel");
-                    Debug.Log($"Can Has View Panel? {viewPanel?.GetType().FullName ?? "Nope"}");
+                    var viewPanel = (XmlElement)xmlLayoutController.XmlLayout.GetElementById("view-panel");
+                    var button = FindChildElementById(viewPanel, ToggleDockingHudButtonId);
+                    if (button != null) {
+                        button.AddOnClickEvent(OnToggleHudButtonClicked);
+                    } else {
+                        Debug.LogWarning("Unable to register Toggle Docking HUD button click action");
+                    }
                 });
+        }
+
+        private static IXmlElement FindChildElementById(
+            XmlElement root,
+            String id) {
+            var queue = new Queue<XmlElement>(root.childElements);
+            while (queue.Count > 0) {
+                var element = queue.Dequeue();
+                if (element.id == id) {
+                    return element;
+                }
+
+                foreach (var child in element.childElements) {
+                    queue.Enqueue(child);
+                }
+            }
+
+            return null;
         }
 
         private void OnToggleHudButtonClicked() {

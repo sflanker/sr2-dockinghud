@@ -391,7 +391,10 @@ namespace Assets.Scripts.UI {
             return angle > 180 ? angle - 360 : angle;
         }
 
-        private static (IPartScript part, Vector3 localPosition) FindClosestDockingPort(ICraftScript craft, Vector3 targetLocalPosition) {
+        private static (IPartScript part, Vector3 localPosition) FindClosestDockingPort(
+            ICraftScript craft,
+            Vector3 targetLocalPosition) {
+
             IPartScript closestPort = null;
             var closestDistance = 0d;
             Vector3 closestLocalPosition = default(Vector3);

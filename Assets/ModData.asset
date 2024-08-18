@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: -1366777262, guid: c37b925f2b4978342b2e0b83a8fa404a, type: 3}
   m_Name: ModData
   m_EditorClassIdentifier: 
-  _assemblies: []
-  _author: sflanker
+  _assemblies:
+  - CrewDragonHUD.dll
+  - Unity.AI.Navigation.dll
+  _author: FlyingPotato_131
   _description: SpaceX Crew Dragon Docking HUD Implementation.
   _loadPriority: 1000
   _name: CrewDragonHUD
@@ -32,4 +34,5 @@ MonoBehaviour:
   _partStyleExtensions: []
   _partTextureStyles: []
   _persistentObjects: []
-  _uiResourceDatabases: []
+  _uiResourceDatabases:
+  - {fileID: 11400000, guid: 9c20518acbdfb4d2faf1ce613509e93d, type: 2}

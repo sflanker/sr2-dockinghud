@@ -100,7 +100,7 @@ namespace Assets.Scripts.UI {
             // this._debug3 = this.GetTextElementById("debug3");
 
             this.ClearText();
-            this.SetRotationRateBars(new Vector3(0, 0, 0));
+            this.SetRotationRateBars(new Vector3d(0, 0, 0));
 
             foreach (var layoutRoot in ((XmlLayout)this._controller.XmlLayout).GetElementsByClass("layoutRoot")) {
                 layoutRoot.SetActive(true);
@@ -288,7 +288,7 @@ namespace Assets.Scripts.UI {
             }
         }
 
-        private void SetRotationRateBars(Vector3 angularVelocity) {
+        private void SetRotationRateBars(Vector3d angularVelocity) {
             // Positive roll rate bar: 0 = 38, >45 = 0
             this._rollRateBarPositive.RectTransform.rotation =
                 Quaternion.Euler(
